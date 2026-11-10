@@ -5,8 +5,8 @@
 - 과제가 요구한 실행 구성을 갖추고, 지정한 방법으로 설치·시작·핵심 동작을 검사한다.
 - Dockerfile이 필요하면 작성한다. `docker info`가 실패하면 Docker를 설치·실행하지 않는다. '빌드 미실행: Docker 없음'으로 적고, 같은 설치·실행 명령을 작업 폴더에서 실행해 검사한다.
 - 웹 서버의 주소와 PORT는 과제나 환경 안내가 정한 값을 쓴다. 정하지 않았으면 0.0.0.0과 3000을 쓰고 사람에게 알린다. 실행 명령은 run.sh에 두고, 마지막 줄은 `exec python3 app.py`처럼 exec로 시작한다.
-- 서버는 AI의 명령이 끝나도 계속 돌게 띄운다. bash에서는 `mkdir -p logs; nohup bash run.sh > logs/server.log 2>&1 & echo $! > logs/server.pid`를 쓴다. `;`를 `&&`로 바꾸지 않는다(바꾸면 엉뚱한 번호가 기록된다). 서버 기록은 logs/server.log, 서버 번호(PID)는 logs/server.pid에 남는다.
+- 서버는 AI의 명령이 끝나도 계속 돌게 띄운다. bash에서는 `mkdir -p logs; nohup bash run.sh > logs/server.log 2>&1 & echo $! > logs/server.pid`를 쓴다. `;`를 `&&`로 바꾸지 않는다(바꾸면 엉뚱한 번호가 기록된다). 서버 기록은 logs/server.log, 서버 번호(PID)는 logs/server.pid에 남는다. bash가 없으면 그 환경에서 명령이 끝나도 서버가 계속 도는 방법을 쓰고, 서버 번호를 logs/server.pid에 적는다.
 - 서버를 띄우거나 다시 켜면 접속할 PORT와 경로를 한 줄로 알린다(예: `PORT 3000, 경로 /`). 화면은 사람이 환경 안내가 정한 방법(미리보기 화면이나 브라우저)으로 본다.
-- AI는 curl 같은 명령으로 응답 코드와 핵심 글자만 확인한다. 브라우저를 띄우거나 조작하는 도구(xdg-open, 헤드리스 Chrome, Playwright 등)는 환경 안내가 허용하고 이미 설치돼 있을 때만 쓴다.
+- AI는 curl 같은 명령으로 응답 코드와 핵심 글자만 확인한다. 브라우저를 띄우거나 조작하는 도구(xdg-open, 헤드리스 Chrome, Playwright 등)는 환경 안내가 허용하고, 이미 설치돼 있고, 사람이 시킬 때만 쓴다.
 - 화면이 있으면 요구사항마다 '화면에서 할 조작 → 보여야 할 것'을 한 줄씩, 모두 3~5개 알려 준다. 이를 위한 별도 화면은 만들지 않는다.
-- 서버를 끌 때는 logs/server.pid에 적힌 번호만 끈다. pkill, killall, fuser -k는 쓰지 않는다. 환경이 띄운 프로세스는 건드리지 않는다.
+- 서버를 끌 때는 logs/server.pid에 적힌 번호만 끈다. pkill, killall, fuser -k처럼 이름이나 포트로 한꺼번에 끄는 명령은 쓰지 않는다. 환경이 띄운 프로세스는 건드리지 않는다.
